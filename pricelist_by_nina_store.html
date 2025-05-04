@@ -1,0 +1,300 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricelist by Nina Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #ffdce2, #ffeef4);
+      padding: 20px;
+      color: #333;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-size: 2rem;
+      color: #d63384;
+    }
+    .contact {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    .search-box {
+      max-width: 400px;
+      margin: 20px auto;
+      display: flex;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    .price-category {
+      margin-bottom: 15px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      padding: 15px;
+      transition: all 0.3s;
+    }
+    .price-category h2 {
+      font-size: 1.2rem;
+      color: #d63384;
+      cursor: pointer;
+    }
+    .price-list {
+      display: none;
+      padding-left: 15px;
+      margin-top: 10px;
+      line-height: 1.5;
+      font-size: 0.95rem;
+    }
+    .price-category.active .price-list {
+      display: block;
+    }
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Pricelist by Nina Store</h1>
+    <div class="contact">Contact: <a href="https://wa.me/6283141462986">wa.me/6283141462986</a> | Payment: Qris, Dana, Gopay</div>
+  </header>
+
+  <div class="search-box">
+    <input type="text" id="search" placeholder="Cari layanan...">
+  </div>
+
+  <div id="pricelist"></div>
+
+  <footer>
+    &copy; 2025 Nina Store. All rights reserved.
+  </footer>
+
+  <script>
+    const data = `AM PRO
+sharing
+1 tahun : 6k
+private
+1 tahun : 9k
+
+CANVA
+1 hari : 400p
+3 hari : 700p
+7 hari : Rp1.400
+1 bulan : Rp2.000
+3 bulan : rp6.000
+5 bulan : Rp7.000
+6 bulan : 9k
+1 tahun : 11k
+lifetime : 15k.
+
+SPOTIFY
+famplan
+1 bulan : 19k
+2 bulan : 26k
+indplan
+3 bulan : 46k
+
+VIU
+prem biasa
+1 bulan : 3k
+2 bulan : 6k
+3 bulan : 8k
+6 bulan : 10k
+1 tahun : 16k
+
+prem antilimit
+1 bulan 6k
+2 bulan : 7k
+3 bulan : 10k
+4 bulan : 11k
+1 tahun : 16k
+
+prem+ sharing
+1 bulan : 9k
+prem+ private
+1 bulan : 46k.
+
+VIDIO
+sharing harian alldev
+1 hari : 6k
+3 hari : 7k
+5 hari : 10k
+7 hari : 12k
+sharing bulanan
+1 bulan alldev : 16k
+1 bulan mobile : 13k
+private
+1 bulan alldev : 25k
+1 bulan mobile : 22k
+1 bulan only tv : 20k
+1 tahun only tv : 40k
+
+IQIYI
+sharing
+1 bulan : 6k
+3 bulan : 9k
+1 tahun : 12k
+private
+1 bulan : 35k
+
+PRIME
+sharing
+1 bulan : 7k
+2 bulan : 9k
+private
+1 bulan : 13k
+2 bulan : 20k
+
+YOUTUBE
+fam
+1 bulan : 4k
+2 bulan : 8k
+
+indlpn
+1 bulan : 8k
+2 bulan 12k
+
+NETFLIX
+1profile1user
+1 hari : 5k
+3 hari : 9k
+7 hari : 13k
+1 bulan : 29k
+2 bulan : 42k
+3 bulan : 62k
+
+1profile 2user
+5 hari : 7k
+7 hari : 9k
+1 bulan : 17k
+2 bulan : 26k
+3 bulan : 36k
+
+semi private
+1 bulan : 29k
+2 bulan : 49k
+3 bulan : 82k
+
+private
+1 minggu : 42k
+1 bulan 120k.
+
+REMINI
+sharing
+1 bulan : 12k
+3 bulan : 17k
+1 tahun : 22k
+
+SCRIBD
+sharing
+1 bulan : 10k
+3 bulan : 14k
+private
+1 bulan : 14k
+
+YOUKU
+sharing
+1 bulan : 9k
+3 bulan : 12k
+1 tahun : 18k
+
+WETV
+sharing (6u)
+1 bulan : 12k
+3 bulan : 15k
+
+sharing (3u) anlim
+1 bulan : 15k
+3 bulan : 35k
+
+private
+1 bulan : 30k.
+
+DISNEY
+sharing
+1 hari : 5k
+3 hari : 8k
+7 hari : 12k
+1 bulan : 28k.
+antilimit
+1 bulan : 48k
+
+BSTATION
+sharing
+1 bulan : 5k
+2 bulan : 10k
+1 tahun : 20k
+private
+1 bulan : 38k
+
+HBO GO
+sharing
+1 bulan : 20k
+private
+1 bulan : 40k
+
+CAPCUT
+sharing 
+1 hari : 3k
+3 hari : 6k
+7 hari : 9k
+1 bulan : 13k
+
+private
+7 hari : 13k
+1 bulan : 49k
+
+𐙚wink
+*sharing*
+• 7 hari : 12k
+*private*
+• 7 hari : 24k`;
+
+    const container = document.getElementById("pricelist");
+
+    function renderList(filter = "") {
+      container.innerHTML = "";
+      data.split("\n\n").forEach(item => {
+        const lines = item.trim().split("\n");
+        const title = lines[0];
+        const prices = lines.slice(1).join("<br>");
+        if (title.toLowerCase().includes(filter.toLowerCase()) || prices.toLowerCase().includes(filter.toLowerCase())) {
+          const category = document.createElement("div");
+          category.classList.add("price-category");
+          category.innerHTML = `<h2>${title}</h2><div class="price-list">${prices}</div>`;
+          category.querySelector("h2").addEventListener("click", () => {
+            category.classList.toggle("active");
+          });
+          container.appendChild(category);
+        }
+      });
+    }
+
+    document.getElementById("search").addEventListener("input", (e) => {
+      renderList(e.target.value);
+    });
+
+    renderList();
+  </script>
+</body>
+</html>
